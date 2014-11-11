@@ -131,6 +131,11 @@ div#dragItemsBox {
 	border: 1px solid grey;
 }
 
+#container{
+	border: 1px solid grey;
+	text-align: center;
+}
+
 /*  Studiengangstruktur  */
 
 #dropbereich {
