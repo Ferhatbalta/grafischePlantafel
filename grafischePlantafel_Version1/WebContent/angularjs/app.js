@@ -1,4 +1,4 @@
-// Schritte
+ // Schritte
 // +  1. Select. Die Fakultaet- und Studiengang-Auswahl generiert.. 
 // +  2. ..eine Tabelle mit Studienaufbau, die..
 // +  3. ..verschiedene Module zusammen fasst.
