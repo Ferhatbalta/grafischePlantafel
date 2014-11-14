@@ -10,11 +10,14 @@ html{
 body {
 	max-width: 960px;
 	min-width: 240px;
+	height: 100%;
 	font-size: 0.875rem;
 	background: white;
 	margin: 1em auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
 	box-shadow: 1px 1px 50px 3px;
-	border-radius: 20px/20px;
+	border-radius: 8px/8px;
 }
 
 /******************** Layoutbereich ********************/
