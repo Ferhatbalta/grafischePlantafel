@@ -152,8 +152,6 @@ app.controller("mainController", function($scope) {
 	               {name:'Betriebs-wirtschaftslehre 1', ECTS:"6"},
 	               {name:'Programmieren und Modellieren 1', ECTS:"6"}
 	               ];
-	$scope.teeeeest = ["hallo", "na", "dsd", "erwin", "ist", "ein", "pic"];
-	var tmpjson = {array: $scope.teeeeest};
 	
 	$scope.sem2 = [
 	               {name:'Geschaeftsprozesse- und Innovationsmanagement', ECTS:'6'},
@@ -201,19 +199,22 @@ app.controller("mainController", function($scope) {
 	$scope.container = [  ];
 	
 	$scope.speichern = function(){
-		alert(0);
-		$.post("angularjs/dbcon.php", {
-			auswahl: "speicherArray",
-			array: tmpjson
-		}).success(function(data) {
-			alert(typeof(data));
-		}).error(function(err) {
-			alert(err);
-		});
-		
+		<?php 
+
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpassword = "";
+$connection = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Kann nicht verbinden: " . mysql_error());
+
+$dbname = "iw";
+mysql_select_db($dbname, $connection) or die("kann db nicht finden");
+
+mysql_query("INSERT INTO Telefonbuch (name, nummer) VALUES ('Amk', '251')");
+mysql_close($connection);
+
+?>
+
 	};
-	
-	
 
 
 });

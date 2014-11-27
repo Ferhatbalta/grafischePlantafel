@@ -4,96 +4,67 @@
 <head>
 <title>Studienplaner</title>
 <meta charset="utf-8">
-<meta name="description" content="Ãœbersicht der StudiengÃ¤ngen">
-<!-- <link rel="stylesheet" href="css/stylesindex.css">  -->
-<link rel="stylesheet" href="css/mycssstyle.css">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<meta name="description" content="Übersicht der Studiengängen">
+<link rel="stylesheet" href="css/stylesindex.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="angularjs/draganddrop.js"></script>
 <script src="angularjs/app.js"></script>
 
 </head>
 <body ng-app="mainModule">
-<div class="container drop-shadow">
-<div class="container ">
-<div class="row"> 
 	<header>
 		<a href="#" title="Zur Startseite"> <img
-			src="images/LogoStudienplaner.jpg" class="img-circle"
-			alt="Responsive" />
+			src="images/LogoStudienplaner.jpg" width="150" height="113"
+			alt="Studienplaner" />
 		</a>
-		<img src="images/logo-hfu.gif"  class="img-responsive pull-right" alt="Responsive" >
 		<h1>Studienplaner</h1>
-		
-		<nav class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-tabs">
-      
-        		<li class="active text-uppercase"><a href="#">Home</a></li>
+		<nav id="sitenav">
+			<ul id="nav_left">
+				<li><a href="#">Home</a></li>
 				<li><a href="#">Mein Studienplan</a></li>
-				<li role="presentation" class="dropdown">
-    				<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-      					Dropdown-MenÃ¼ <span class="caret"></span> </a>
-   					<ul class="dropdown-menu" role="menu">
-           				 <li><a href="#">Aktion</a></li>
-            			 <li><a href="#">Andere Aktion</a></li>
-            			<li><a href="#">Irgendwas anderes</a></li>
-					</ul>
-				</li>
-				<li><a href="#">Studienplan bearbeiten</a></li>
-				
-	</ul>
-	
+				<li id="nav_right"><a href="#">Anmelden</a></li>
+			</ul>
 
-</nav>
+		</nav>
 	</header>
-
+	
 	<main ng-controller="mainController">
 	<section>
 		
-		<aside class="col-md-3">
-			<div class="form-group">
-				<label>FakultÃ¤t:</label> 
-					<select class="form-control" id="fakultÃ¤t" data-ng-model="fakultaet"
-						data-ng-options="fakult.name for fakult in fakultaeten"
-						ng-change="fakultaetChanged()">
-					</select> 
-				<br/> 
-				<label for="studiengang">Studiengang:</label> 
-					<select
-						class="form-control" id="studiengang"
-						data-ng-model="studiengang"
-						data-ng-options="stud.name for stud in studiengaenge"
-						ng-change="studiengangChanged()">
-					</select> 
-				<br/>
+		<aside id="aside_left">
+			<div id="auswahl">
+				<label>Fakultät:</label> <select data-ng-model="fakultaet"
+					data-ng-options="fakult.name for fakult in fakultaeten"
+					ng-change="fakultaetChanged()">
+				</select> <br /> <label>Studiengang:</label> <select
+					data-ng-model="studiengang"
+					data-ng-options="stud.name for stud in studiengaenge"
+					ng-change="studiengangChanged()">
+				</select> <br />
 
 				<div id="modul_liste" ui-on-Drop="onDrop($event,$data,modulKa)">
 					<p>Modulkatalog:</p>
-					
+					<select data-ng-model="modul"
+						data-ng-options="mod.name for mod in module">
+					</select> <br />
 					<div id="dragItemsBox">
 						<div class="modul" ui-draggable="true" drag="modul"
 							on-drop-success="dropSuccessHandler($event,$index,modulKa)"
 							ng-repeat="modul in modulKa">{{modul.name}}</div>
 					</div> 
-					<div id="modul" ng-click="add(modulkatalog)"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Modul hinzufÃ¼gen</div>
+					<div id="modul" ng-click="add(modulkatalog)"> + Modul hinzufügen </div>
 				</div>
-				<div id="container" ui-on-Drop="onDrop($event,$data,container)">
-					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Papierkorb</div>
+			</div>
+			<div id="container" ui-on-Drop="onDrop($event,$data,container)">
+					<h1>Müll</h1>
 				</div>
-			<div id="container" ui-on-Drop="onDrop($event,$data,container)"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Studienplan peichern</div>
-			<div id="container" ui-on-Drop="onDrop($event,$data,container)"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Studienplan drucken</div>
-			
-			<div ng-click="speichern()"> datenbank yeeey</div>
-			
+				<div ng-click="speichern()"> datenbank yeeey</div>
 		</aside>
-		
-			<!-- bis hier hin ok -->
-			
-
-		<aside class="col-md-9">
-			<h5>Studiengangauswahl -> FakultÃ¤t: {{fakultaet.name}}
+<!-- test -->
+		<aside id="aside_right">
+			<h5>Studiengangauswahl -> Fakultät: {{fakultaet.name}}
 				Studingang: {{studiengang.name}}</h5>
 			<div id="dropbereich">
 				
@@ -203,14 +174,8 @@
 		</aside>
 	</section>
 	</main>
-	<footer class="row">
-  			<div class="col col-md-12 offset-9"> Copyright &copy; 2014 Studienplaner | Grafische Plantafel | <a href="http://www.hs-furtwangen.de">Hochschule Furtwangen</a> | <a href="http://www.hs-furtwangen.de">Impressum</a> </div>
-  		
-				
-  		
-  		</footer>
-	  	</div>
-	</div><!-- --ende container -->
-	</div> <!-- ende row -->
+	<footer>
+		<p>Team: Kinzel Veronika, Landry Kamdem, Ferhat Balta, Kazim Atila</p>
+	</footer>
 </body>
 </html>

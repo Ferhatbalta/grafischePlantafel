@@ -1,0 +1,206 @@
+/*************** Style fuer Startseite ***************/
+header, nav, main, aside, section, footer {
+	display: block;
+}
+
+
+/******************** Layoutbereich ********************/
+header {
+	position: relative;
+	padding: 1em;
+	height: 155px;
+	widht:250px;
+	
+}
+header a {
+	float: left;
+	color:black;
+	text-decoration: none;
+}
+header h1 {
+	font-family: Arial;
+	color: green;
+}
+
+nav {
+	position: relative;
+	top: 20px;
+	bottom: 20px;
+}
+body{
+	background-color: grey;
+	
+	
+} 
+.container{
+	background-color:white;
+
+}
+
+
+/****************** Seitenavigation ***************/
+
+
+
+/******************* Hauptbereich ******************/
+
+main {
+	position: relative;
+	width: 100%;
+	height: 520px;
+	background-color: #dcdcdc;/* #F8F8ff;*/
+	border-top: 1px solid grey;
+	border-bottom: 30px solid grey;
+	border-radius: 20px 20px 0px 0px;
+	margin-top: 20px;
+	
+	
+}	
+
+
+/****************** Keller ***********************/
+
+
+
+/************Selections-Navigation*************/
+
+/* Fakultaet und Studiengang auswaehlen */
+
+div#auswahl {
+	padding: 3px;
+}
+div.nav nav-tabs{
+	margin: 5px;
+	height: 300px;
+	width: 100%;
+}
+div#auswahl > label {
+	float: left;
+	margin: 3px;
+}
+div#auswahl > select {
+	margin: 3px;
+	width: 100%;
+}
+div#modul_liste {
+	margin: 5px;
+	
+
+}
+div#modul_liste > p {
+	padding: 5px;
+	margin: 3px;
+	padding-left: 0px;	
+	
+}
+div#dragItemsBox {
+	width: 100%;
+	margin-top: 10px;
+	overflow-y: scroll;
+	bottom: 155px;
+	
+
+	
+
+}
+.modul {
+	background-color: #fffafa;
+	padding: 5px;
+	heigth: 50px;
+	border: 1px solid grey;
+}
+
+/*  Studiengangstruktur  */
+
+#dropbereich {
+	background-color: #ffffff; /* #f5f5f5; */
+	height: 432px;
+	padding: 2px;	
+	border-color:red;
+}
+h5 {
+	margin: 3px;
+	padding: 2px;
+}
+[draggable=true] {
+  cursor: move;
+}
+table {
+	width: 100%;
+	height:900;
+}
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+  height: 50px;
+ border-style: hidden; rahmen unsichtbar machen
+}
+
+table th#th_semester {
+	width: 5px;
+	border-color:red;
+}
+table th#ects6{width: 140px;
+height: 50px;
+display: inline-black;
+text-align: left;
+}
+table th#ects12{width: 140px;
+height: 50px;
+display: inline-black;
+}
+
+table tr:nth-child(odd)	{
+  background-color: #f1f1f1;
+  
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+table td {
+	height: 30px;
+	padding: 0px;	
+}
+.nav{
+	background-color: green;
+	border-radius: 20px 20px 0px 0px;
+	margin-top: 35px;
+	width: 100%;
+	position: relative;
+}
+
+.nav li a {
+	color: white;
+}
+
+.btn btn-default navbar-btn{
+	
+}
+
+table td > div {
+	float: left;
+	padding: 5px;
+	margin: 2px;
+	height: 25px;	
+	
+}
+table td > div#struktur {
+	background-color: #f1f1f1;
+	border: 1px solid DarkGray;
+	width: 140px;
+	height: 50px;
+}
+table td > div > a {
+	color:black;
+	text-decoration: none;
+}
+.drop-shadow {
+        -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+        box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+    }
+    .container.drop-shadow {
+        padding-left:0;
+        padding-right:0;
+    }
+
