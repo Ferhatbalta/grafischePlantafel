@@ -1,7 +1,11 @@
 /*************** Style fuer Startseite ***************/
+
+
+ 
 header, nav, main, aside, section, footer {
 	display: block;
 }
+
 
 
 /******************** Layoutbereich ********************/
@@ -24,14 +28,15 @@ header h1 {
 
 nav {
 	position: relative;
-	top: 20px;
-	bottom: 20px;
+	top: 22px;
+	margin-right:-30px; 	/* Rand Rechts bei Navigation-Header - Bootstrap classe ".navbar-collapse"*/
+	margin-left:-30px;		/* Rand Links bei Navigation-Header*/
+	padding-bottom:50px;	
 }
 body{
 	background-color: grey;
+	} 
 	
-	
-} 
 .container{
 	background-color:white;
 
@@ -47,7 +52,7 @@ body{
 main {
 	position: relative;
 	width: 100%;
-	height: 520px;
+	height: 595px;
 	background-color: #dcdcdc;/* #F8F8ff;*/
 	border-top: 1px solid grey;
 	border-bottom: 30px solid grey;
@@ -72,7 +77,7 @@ div#auswahl {
 div.nav nav-tabs{
 	margin: 5px;
 	height: 300px;
-	width: 100%;
+	//width: 100%;
 }
 div#auswahl > label {
 	float: left;
@@ -97,7 +102,10 @@ div#dragItemsBox {
 	width: 100%;
 	margin-top: 10px;
 	overflow-y: scroll;
+	height: 150px;
 	bottom: 155px;
+	background-color: grey;
+	opacity: 0.8;
 	
 
 	
@@ -108,13 +116,14 @@ div#dragItemsBox {
 	padding: 5px;
 	heigth: 50px;
 	border: 1px solid grey;
+	
 }
 
 /*  Studiengangstruktur  */
 
 #dropbereich {
-	background-color: #ffffff; /* #f5f5f5; */
-	height: 432px;
+	background-color:  #f5f5f5; 
+	height: 537px;
 	padding: 2px;	
 	border-color:red;
 }
@@ -164,10 +173,10 @@ table td {
 }
 .nav{
 	background-color: green;
-	border-radius: 20px 20px 0px 0px;
+	border-radius: 20px 20px 0px 0px; 
 	margin-top: 35px;
 	width: 100%;
-	position: relative;
+	//position: relative;
 }
 
 .nav li a {
@@ -188,8 +197,13 @@ table td > div {
 table td > div#struktur {
 	background-color: #f1f1f1;
 	border: 1px solid DarkGray;
-	width: 140px;
-	height: 50px;
+	width: 155px;
+	height: 65px;
+
+}
+
+container {
+	width: 5000px;
 }
 table td > div > a {
 	color:black;
