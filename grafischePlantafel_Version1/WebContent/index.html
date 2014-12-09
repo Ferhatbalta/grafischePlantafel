@@ -86,7 +86,7 @@
 			<div id="container" ui-on-Drop="onDrop($event,$data,container)"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Studienplan peichern</div>
 			<div id="container" ui-on-Drop="onDrop($event,$data,container)"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Studienplan drucken</div>
 			
-			<div ng-click="speichern()"> datenbank yeeey</div>
+			<div ng-click="saveJs()"> datenbank yeeey</div>
 			
 		</aside>
 		
@@ -106,15 +106,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ui-on-Drop="onDrop($event,$data,sem1)">
+						<tr ui-on-Drop="onDrop($event,$data,arr1test)">
 							<td>
 								<div id="semester"">1</div>
 							</td>
 							<td>
 								<div id="struktur" ui-draggable="true" drag="mod1"
-									on-drop-success="dropSuccessHandler($event,$index,sem1)"
-									data-ng-model="modul" ng-repeat="mod1 in sem1">
-									<a href="#">{{mod1.name}}</a>
+									on-drop-success="dropSuccessHandler($event,$index,arr1test)"
+									data-ng-model="modul" ng-repeat="mod1 in arr1test">
+									<a href="#">{{mod1.M_Name}}</a>
 								</div>
 							</td>
 						</tr>

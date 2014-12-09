@@ -16,7 +16,7 @@
 
 var app = angular.module("mainModule", ["ngDragDrop"]);
 
-app.controller("mainController", function($scope) {
+app.controller("mainController", function($scope, $http) {
 	
 // Fakultaeten	
 	$scope.fakultaeten = [			// f steht fuer Furtwangen
@@ -137,6 +137,11 @@ app.controller("mainController", function($scope) {
 	};
 	
 	
+		
+	$http.get("http://studienplaner.cloud.hs-furtwangen.de/dbConnection.php").success(function(response) {$scope.arr1test = response;});
+
+	
+	
 	// Test mit 8 Arrays
 	
 	$scope.modulKa = [
@@ -213,6 +218,30 @@ app.controller("mainController", function($scope) {
 		
 	};
 	
+	function saveJs()
+	{
+	var ahttp;
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  ahttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  ahttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	
+	ahttp.onreadystatechange=function()
+	  {
+	  if (ahttp.readyState==4 && xmlhttp.status==200)
+	    {
+	    //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+	    }
+	  }
+	
+	ahttp.open('POST', 'http://studienplaner.cloud.hs-furtwangen.de/test.php', true);
+	ahttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+	ahttp.send($scope.sem2);
+	}
 	
 
 
