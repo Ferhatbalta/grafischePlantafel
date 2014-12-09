@@ -205,18 +205,7 @@ app.controller("mainController", function($scope, $http) {
 	               ];
 	$scope.container = [  ];
 	
-	$scope.speichern = function(){
-		alert(0);
-		$.post("angularjs/dbcon.php", {
-			auswahl: "speicherArray",
-			array: tmpjson
-		}).success(function(data) {
-			alert(typeof(data));
-		}).error(function(err) {
-			alert(err);
-		});
-		
-	};
+
 	
 	function saveJs()
 	{
