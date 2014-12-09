@@ -19,10 +19,14 @@ var app = angular.module("mainModule", ["ngDragDrop"]);
 app.controller("mainController", function($scope, $http) {
 	
 // Fakultaeten	
+	
+	$http.get("http://studienplaner.cloud.hs-furtwangen.de/dbcon/fakultaet.php").success(function(response) {$scope.fakultaeten = response;});
 	$scope.fakultaeten = [			// f steht fuer Furtwangen
 	        { id:"fwi", name:"WI"}, 
 	        { id:"fin", name:"IN"}
 	];
+	
+	
 // Studiengaenge	
 	$scope.fwi = [
 	        { id:"fwib", name:"WIB"}, 
@@ -149,7 +153,7 @@ app.controller("mainController", function($scope, $http) {
 	                  {name:'Test Modul 2', ECTS:"6"}];
 
 	
-	//$scope.sem1 = ['Mathe','ProMod1'];
+
 	$scope.sem1 = [
 	               {name:'Einfuehrung in die Wirtschaftsinformatik', ECTS:"6"}, 
 	               {name:'Wirtschafts-mathematik und -statistik', ECTS:"6"},
@@ -157,8 +161,7 @@ app.controller("mainController", function($scope, $http) {
 	               {name:'Betriebs-wirtschaftslehre 1', ECTS:"6"},
 	               {name:'Programmieren und Modellieren 1', ECTS:"6"}
 	               ];
-	$scope.teeeeest = ["hallo", "na", "dsd", "erwin", "ist", "ein", "pic"];
-	var tmpjson = {array: $scope.teeeeest};
+
 	
 	$scope.sem2 = [
 	               {name:'Geschaeftsprozesse- und Innovationsmanagement', ECTS:'6'},
