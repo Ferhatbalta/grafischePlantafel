@@ -20,11 +20,11 @@ app.controller("mainController", function($scope, $http) {
 	
 // Fakultaeten	
 	
-	$http.get("http://studienplaner.cloud.hs-furtwangen.de/dbcon/fakultaet.php").success(function(response) {$scope.fakultaeten = response;});
-	$scope.fakultaeten = [			// f steht fuer Furtwangen
-	        { id:"fwi", name:"WI"}, 
-	        { id:"fin", name:"IN"}
-	];
+	$http.get("../dbcon/fakultaet.php").success(function(response) {$scope.fakultaeten = response;});
+	//$scope.fakultaeten = [			// f steht fuer Furtwangen
+	  //      { id:"fwi", name:"WI"}, 
+	   //     { id:"fin", name:"IN"}
+	//];
 	
 	
 // Studiengaenge	
@@ -109,16 +109,40 @@ app.controller("mainController", function($scope, $http) {
 	
 	
 	//Aenderungen ueberwachen: Fakultaet 
+	/**
 	$scope.fakultaet = $scope.fakultaeten[0];
 	($scope.fakultaetChanged = function(){
-		$scope.studiengang = ($scope.studiengaenge = $scope[$scope.fakultaet.id])[0];
+		$scope.studiengang = ($scope.studiengaenge = $scope[$scope.fakultaet.F_ID])[0];
 	})();
+	
 	
 	//Aenderungen ueberwachen: Studiengang 
 	$scope.studiengang = $scope.studiengaenge[0];
 	($scope.studiengangChanged = function(){
-		$scope.modul = ($scope.module = $scope[$scope.studiengang.id]);
+		$scope.modul = ($scope.module = $scope[$scope.studiengang.S_ID]);
 	})();
+	**/
+	
+	$scope.fChange = function(){
+		
+		$scope.test = $scope.fakultaet.F_kurz;
+		prompt($scope.test);
+		
+	   
+		
+		$.post( "../dbcon/fwi.php", { name: test } );
+
+		
+		$http.get("../dbcon/fwi.php").success(function(response) {$scope.studiengaaaenge = response;});	
+
+	};
+	
+	
+	
+	
+
+	
+	
 	
 	$scope.dropSuccessHandler = function($event,index,array){
 		array.splice(index,1);
@@ -142,7 +166,7 @@ app.controller("mainController", function($scope, $http) {
 	
 	
 		
-	$http.get("http://studienplaner.cloud.hs-furtwangen.de/dbConnection.php").success(function(response) {$scope.arr1test = response;});
+	$http.get("../dbConnection.php").success(function(response) {$scope.arr1test = response;});
 
 	
 	

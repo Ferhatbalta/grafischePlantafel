@@ -11,9 +11,38 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="angularjs/draganddrop.js"></script>
 <script src="angularjs/app.js"></script>
+
+<script>
+  $('#meinButton').on('click', function () {
+    var $btn = $(this).button('loading')
+    // Geschäftslogik...
+    $btn.button('reset')
+  })
+</script>
+<script>
+$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+$('#beispiel').popover(options)
+
+</script>
+
+<!-- Webmail -->
+<script>
+$('#beispielModal').on('show.bs.modal', function (event) {
+	  var button = $(event.relatedTarget) // Button, der das Modal ausgelöst hat
+	  var recipient = button.data('whatever') // Infos aus data-*-Attributen extrahieren
+	  // Falls notwendig, könntest du an dieser Stelle eine AJAX-Anfrage initiieren (und dann die Aktualisierung in einem Callback erledigen).
+	  // Modal-Inhalt aktualisieren. Wir verwenden an dieser Stelle jQuery here, aber du könntest auch eine Data-Binding-Bibliothek oder andere Methoden verwenden.
+	  var modal = $(this)
+	  modal.find('.modal-title').text('Neue Nachricht an ' + recipient)
+	  modal.find('.modal-body input').val(recipient)
+	})
+</script> <!-- Ende Webmail -->
+
 
 </head>
 <body ng-app="mainModule">
@@ -56,16 +85,16 @@
 		<aside class="col-md-3">
 			<div class="form-group">
 				<label>Fakultät:</label> 
-					<select class="form-control" id="fakultät" data-ng-model="fakultaet"
+					<select name="selectFa" class="form-control" id="fakultät" data-ng-model="fakultaet"
 						data-ng-options="fa.F_kurz for fa in fakultaeten"
-						>
+						ng-change="fChange()">
 					</select> 
 				<br/> 
 				<label for="studiengang">Studiengang:</label> 
 					<select
 						class="form-control" id="studiengang"
 						data-ng-model="studiengang"
-						data-ng-options="stud.name for stud in studiengaenge"
+						data-ng-options="stud.S_kurz for stud in studiengaaaenge"
 						ng-change="studiengangChanged()">
 					</select> 
 				<br/>
