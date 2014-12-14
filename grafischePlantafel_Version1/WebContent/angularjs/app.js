@@ -21,129 +21,114 @@ app.controller("mainController", function($scope, $http) {
 // Fakultaeten	
 	
 	$http.get("../dbcon/fakultaet.php").success(function(response) {$scope.fakultaeten = response;});
-	//$scope.fakultaeten = [			// f steht fuer Furtwangen
-	  //      { id:"fwi", name:"WI"}, 
-	   //     { id:"fin", name:"IN"}
-	//];
 	
 	
-// Studiengaenge	
-	$scope.fwi = [
-	        { id:"fwib", name:"WIB"}, 
-	        { id:"fwnb", name:"WNB"},
-	        { id:"fmba", name:"MBA"}, 
-	        { id:"fmbc", name:"MBC"}
-	];
-	
-	$scope.fin = [
-	  	    { id:"fabc", name:"ABC"}, 
-		    { id:"fdtf", name:"DTF"},
-		    { id:"femn", name:"EMN"}, 
-		    { id:"fkpt", name:"KPT"}
-	];
-// Module
-	
-	$scope.fwib = [
-	       { id:"1", name:"Promod"},
-	       { id:"1", name:"Mathe"},
-	       { id:"2", name:"Internetworking"},
-	       { id:"2", name:"ReWe"},
-	       { id:"3", name:"Geschaeftsprozesse"},
-	       { id:"3", name:"ProMod"},
-	       { id:"4", name:"Logistik"},
-	       { id:"4", name:"SWE"},
-	       { id:"5", name:"Praxissemester"},
-	       { id:"5", name:"Studienarbeit"},
-	       { id:"6", name:"Business-Projekt"},
-	       { id:"6", name:"Software-Projekt"},
-	       { id:"7", name:"Muendliche Pruefung"},
-	       { id:"7", name:"Thesis"}	       
-	];
-	
-	$scope.fwib = [
-	    	       { id:"fwib1", name:"Promod"},
-	    	       { id:"1", name:"Mathe"},
-	    	       { id:"2", name:"Internetworking"},
-	    	       { id:"2", name:"ReWe"},
-	    	       { id:"3", name:"Geschaeftsprozesse"},
-	    	       { id:"3", name:"ProMod"},
-	    	       { id:"4", name:"Logistik"},
-	    	       { id:"4", name:"SWE"},
-	    	       { id:"5", name:"Praxissemester"},
-	    	       { id:"5", name:"Studienarbeit"},
-	    	       { id:"6", name:"Business-Projekt"},
-	    	       { id:"6", name:"Software-Projekt"},
-	    	       { id:"7", name:"Muendliche Pruefung"},
-	    	       { id:"7", name:"Thesis"}	       
-	    	];
-	
-	$scope.fwib1 = [
-	                {name:"ProMod"},
-	                {name: "Mathe"}
-	                ];
-	
-	$scope.fwnb = [
-	    	       { id:"1", name:"Web Design"},
-	    	       { id:"1", name:"ABWL"},
-	    	       { id:"2", name:"Datenbanken"},
-	    	       { id:"2", name:"ReWe"},
-	    	       { id:"3", name:"Requirments Engineering"},
-	    	       { id:"3", name:"eBusiness"},
-	    	       { id:"4", name:"Logistik"},
-	    	       { id:"4", name:"eShop Design"},
-	    	       { id:"5", name:"Praxissemester"},
-	    	       { id:"5", name:"Studienarbeit"},
-	    	       { id:"6", name:"Business-Projekt"},
-	    	       { id:"6", name:"IT-Management"},
-	    	       { id:"7", name:"Muendliche Pruefung"},
-	    	       { id:"7", name:"Thesis"}	       
-	    	];
-	
-	
-	
-	$scope.semesters_grid = [
-	        {name:"1"}, {name:"2"}, {name:"3"}, {name:"4"}, {name:"5"}, {name:"6"}, {name:"7"}
-	];
-	
-	$scope.modulkatalog = [{ id:"4", name:"SWE"}, { id:"2", name:"Controlling"}];
-	
-	
-	//Aenderungen ueberwachen: Fakultaet 
-	/**
-	$scope.fakultaet = $scope.fakultaeten[0];
-	($scope.fakultaetChanged = function(){
-		$scope.studiengang = ($scope.studiengaenge = $scope[$scope.fakultaet.F_ID])[0];
-	})();
-	
-	
-	//Aenderungen ueberwachen: Studiengang 
-	$scope.studiengang = $scope.studiengaenge[0];
-	($scope.studiengangChanged = function(){
-		$scope.modul = ($scope.module = $scope[$scope.studiengang.S_ID]);
-	})();
-	**/
+
 	
 	$scope.fChange = function(){
-		
-		$scope.test = $scope.fakultaet.F_kurz;
-		prompt($scope.test);
-		
-	   
-		
-		$.post( "../dbcon/fwi.php", { name: test } );
+		$scope.aktuelleFakultaet = $scope.fakultaet.F_ID;
+		$http.post( "../dbcon/fChange.php", { name: $scope.aktuelleFakultaet + "" } ).success(function(response) {$scope.studiengaenge = response;});
 
-		
-		$http.get("../dbcon/fwi.php").success(function(response) {$scope.studiengaaaenge = response;});	
+	};
+	
+	$scope.container = [];
+	
+	$scope.sChange = function(){
 
+		$scope.aktuellerStudiengang = $scope.studiengang.S_ID;
+
+		$http.post( "dbcon/abfragen/sem1.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr1 = response;});
+		$http.post( "dbcon/abfragen/sem2.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr2 = response;});
+		$http.post( "dbcon/abfragen/sem3.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr3 = response;});
+		$http.post( "dbcon/abfragen/sem4.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr4 = response;});
+		$http.post( "dbcon/abfragen/sem5.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr5 = response;});
+		$http.post( "dbcon/abfragen/sem6.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr6 = response;});
+		$http.post( "dbcon/abfragen/sem7.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr7 = response;});
+		$http.post( "dbcon/abfragen/sem8.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr8 = response;});
+		
+	};
+	
+	$scope.save = function(){
+		$scope.lok = 1;
+		for(var i=0;i<$scope.arr1.length;i++) {
+			$scope.mid = $scope.arr1[i].M_ID;
+		
+			$http.post( "dbcon/abfragen/save.php", { mid: $scope.mid, lok: $scope.lok } ).success(function(response){});
+		}
+		
+		$scope.lok = 2;
+		for(var i=0;i<$scope.arr2.length;i++) {
+			$scope.mid = $scope.arr2[i].M_ID;
+			$http.post( "dbcon/abfragen/save.php", { mid: $scope.mid, lok: $scope.lok } ).success(function(response){});
+		}
+		
+		$scope.lok = 3;
+		for(var i=0;i<$scope.arr3.length;i++) {
+			$scope.mid = $scope.arr3[i].M_ID;
+			$http.post( "dbcon/abfragen/save.php", { mid: $scope.mid, lok: $scope.lok } ).success(function(response){});
+		}
+		
+		$scope.lok = 4;
+		for(var i=0;i<$scope.arr4.length;i++) {
+			$scope.mid = $scope.arr4[i].M_ID;
+			$http.post( "dbcon/abfragen/save.php", { mid: $scope.mid, lok: $scope.lok } ).success(function(response){});
+		}
+		
+		$scope.lok = 5;
+		for(var i=0;i<$scope.arr5.length;i++) {
+			$scope.mid = $scope.arr5[i].M_ID;
+			$http.post( "dbcon/abfragen/save.php", { mid: $scope.mid, lok: $scope.lok } ).success(function(response){});
+		}
+		
+		$scope.lok = 6;
+		for(var i=0;i<$scope.arr6.length;i++) {
+			$scope.mid = $scope.arr6[i].M_ID;
+			$http.post( "dbcon/abfragen/save.php", { mid: $scope.mid, lok: $scope.lok } ).success(function(response){});
+		}
+		
+		$scope.lok = 7;
+		for(var i=0;i<$scope.arr7.length;i++) {
+			$scope.mid = $scope.arr7[i].M_ID;
+			$http.post( "dbcon/abfragen/save.php", { mid: $scope.mid, lok: $scope.lok } ).success(function(response){});
+		}
+		
+		$scope.lok = 8;
+		for(var i=0;i<$scope.arr8.length;i++) {
+			$scope.mid = $scope.arr8[i].M_ID;
+			$http.post( "dbcon/abfragen/save.php", { mid: $scope.mid, lok: $scope.lok } ).success(function(response){});
+		}
+		
+		$scope.lok = 8;
+		for(var i=0;i<$scope.container.length;i++) {
+			$scope.mid = $scope.container[i].M_ID;
+			$http.post( "dbcon/abfragen/delete.php", { mid: $scope.mid, lok: $scope.lok } ).success(function(response){});
+		}
+		
+		$scope.lok = 8;
+		for(var i=0;i<$scope.arrAdd.length;i++) {
+			$scope.afid = $scope.arrAdd[i].fid;
+			$scope.asid = $scope.arrAdd[i].sid;
+			$scope.amkurz = $scope.arrAdd[i].mkurz;
+			$scope.amodulname = $scope.arrAdd[i].modulname;
+			$scope.aects = $scope.arrAdd[i].ects;
+			$scope.mid = $scope.arrAdd[i].M_ID;
+			
+			$http.post( "dbcon/abfragen/insert.php", { fid: $scope.afid, sid: $scope.asid, mkurz: $scope.amkurz, modulname: $scope.amodulname, ects: $scope.aects  } ).success(function(response){});
+			$http.post( "dbcon/abfragen/insert1.php", { sid: $scope.asid, mkurz: $scope.amkurz, modulname: $scope.amodulname, ects: $scope.aects  } ).success(function(response)
+					{
+				
+				$scope.newMID = response.M_ID;
+				
+				$http.post( "dbcon/abfragen/insert2.php", { fid: $scope.afid, sid: $scope.asid, mid: $scope.newMID } ).success(function(response){});
+					});
+		}
+		alert("Erfolgreich gespeichert");
 	};
 	
 	
 	
 	
 
-	
-	
-	
 	$scope.dropSuccessHandler = function($event,index,array){
 		array.splice(index,1);
 	};
@@ -152,113 +137,46 @@ app.controller("mainController", function($scope, $http) {
 	};
 	
 
-	
-	$scope.add = function(array){
-		
-		$scope.modulKa.push(
-				{name: window.prompt("Welches Modul moechten Sie hinzufuegen?"), 
-					ECTS:window.prompt("ECTS?")}	
-		);
+	$scope.arrAdd = [];
+	$scope.add = function(array)
+	{
+		$scope.modulname = document.getElementById('Modulname').value;
+		$scope.ects = document.getElementById('Ects').value;
+		$scope.mkurz = document.getElementById('mkurz').value;
 
-		//$scope.modulkatalog.push({id: window.prompt("Semester?", "") , 
-			//name: window.prompt("Welches Modul wollen Sie hinzufügen?", "")});
+		$scope.arr8.push({M_Name: $scope.modulname, ECTS:$scope.ects});
+		$scope.arrAdd.push({fid: $scope.aktuelleFakultaet, sid: $scope.aktuellerStudiengang, mkurz: $scope.mkurz, modulname: $scope.modulname, ects: $scope.ects});
+
 	};
 	
 	
-		
-	$http.get("../dbConnection.php").success(function(response) {$scope.arr1test = response;});
-
 	
 	
-	// Test mit 8 Arrays
-	
-	$scope.modulKa = [
-	                  {name:'Test Modul 1', ECTS:"6"}, 
-	                  {name:'Test Modul 2', ECTS:"6"}];
-
-	
-
-	$scope.sem1 = [
-	               {name:'Einfuehrung in die Wirtschaftsinformatik', ECTS:"6"}, 
-	               {name:'Wirtschafts-mathematik und -statistik', ECTS:"6"},
-	               {name:'Datenbanken', ECTS:"6"},
-	               {name:'Betriebs-wirtschaftslehre 1', ECTS:"6"},
-	               {name:'Programmieren und Modellieren 1', ECTS:"6"}
-	               ];
-
-	
-	$scope.sem2 = [
-	               {name:'Geschaeftsprozesse- und Innovationsmanagement', ECTS:'6'},
-	               {name:'Internetworking', ECTS:'6'},
-	               {name:'Rechnungswesen und Controlling', ECTS:'6'},
-	               {name:'Business Kommunikation 1', ECTS:'6'},
-	               {name:'Formale Methoden und Datenstrukturen', ECTS:'6'}
-	              
-	               ];
-	
-	$scope.sem3 = [
-	         	   {name:'Integrierte Standardsoftware', ECTS:'6'},
-	               {name:'Business Kommunikation 2:', ECTS:'6'},
-	               {name:'Programmieren und Modellieren 2', ECTS:'9'},
-	               {name:'System- und Netzwerkarchitekturen', ECTS:'9'}
-	               
-	               ];
-	
-	$scope.sem4 = [
-	               {name:'Profilfach 1', ECTS:'6'},
-	               {name:'Wissensmanagement', ECTS:'6'},
-	               {name:'Betriebswirtschaftslehre 2 und Volkswirtschaftslehre ', ECTS:'6'},
-	               {name:'Software Engineering', ECTS:'6'},
-	               {name:'Logistik und Supply Chain Management', ECTS:'6'}
-	               ];
-	
-	$scope.sem5 = [	               
-	               {name:'Praktisches Studiensemester', ECTS:'6'},
-	               {name:'Einfuehrung / Vorbereitung Praktisches Studiensemester', ECTS:'6'},
-	               {name:'Nachbereitung Praktisches Studiensemester', ECTS:'6'},
-	               {name:'Studienarbeit', ECTS:'6'}
-	               ];
-	
-	$scope.sem6 = [ 
-	               {name:'Profilfach 2', ECTS:'6'},
-	               {name:'Software-Projekt', ECTS:'6'},
-	               {name:'Business-Projekt', ECTS:'6'}      
-	               ];
-	
-	$scope.sem7 = [
-	               {name:'Bachelor-Projekt', ECTS:'6'},
-	               {name:'Thesis', ECTS:'6'},
-	               {name:'muendliche Pruefung', ECTS:'6'}
-	               ];
-	$scope.container = [  ];
 	
 
 	
-	function saveJs()
-	{
-	var ahttp;
-	if (window.XMLHttpRequest)
-	  {// code for IE7+, Firefox, Chrome, Opera, Safari
-	  ahttp=new XMLHttpRequest();
-	  }
-	else
-	  {// code for IE6, IE5
-	  ahttp=new ActiveXObject("Microsoft.XMLHTTP");
-	  }
+	//Try to print START
+	$scope.printDiv = function(drucken) {
+	  var printContents = document.getElementById(drucken).innerHTML;
+	  //var originalContents = document.body.innerHTML;   
+	  var originalContents = document.innerHTML;   
+	  var popupWin = window.open('', '_blank', 'width=1000,height=600');
+	  popupWin.document.open()
+	  popupWin.document.write(
+			  '<html>' + 
+			  	'<head>' + 
+			  		'<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">' +
+			  		'<link rel="stylesheet" href="css/mycssstyle.css">' + 
+			  		'</head><body onload="window.print()">' + printContents + '</html>');
+	  popupWin.document.close();
+	} 
 	
-	ahttp.onreadystatechange=function()
-	  {
-	  if (ahttp.readyState==4 && xmlhttp.status==200)
-	    {
-	    //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-	    }
-	  }
+
+
+
+//Try to print END
 	
-	ahttp.open('POST', 'http://studienplaner.cloud.hs-furtwangen.de/test.php', true);
-	ahttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-	ahttp.send($scope.sem2);
-	}
-	
+
 
 
 });

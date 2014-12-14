@@ -8,12 +8,11 @@
 <!-- <link rel="stylesheet" href="css/stylesindex.css">  -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/mycssstyle.css">
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="angularjs/draganddrop.js"></script>
 <script src="angularjs/app.js"></script>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script><!-- link für jQuery librery -->
 
 <script>
   $('#meinButton').on('click', function () {
@@ -29,19 +28,6 @@ $(function () {
 $('#beispiel').popover(options)
 
 </script>
-
-<!-- Webmail -->
-<script>
-$('#beispielModal').on('show.bs.modal', function (event) {
-	  var button = $(event.relatedTarget) // Button, der das Modal ausgelöst hat
-	  var recipient = button.data('whatever') // Infos aus data-*-Attributen extrahieren
-	  // Falls notwendig, könntest du an dieser Stelle eine AJAX-Anfrage initiieren (und dann die Aktualisierung in einem Callback erledigen).
-	  // Modal-Inhalt aktualisieren. Wir verwenden an dieser Stelle jQuery here, aber du könntest auch eine Data-Binding-Bibliothek oder andere Methoden verwenden.
-	  var modal = $(this)
-	  modal.find('.modal-title').text('Neue Nachricht an ' + recipient)
-	  modal.find('.modal-body input').val(recipient)
-	})
-</script> <!-- Ende Webmail -->
 
 
 </head>
@@ -94,141 +80,224 @@ $('#beispielModal').on('show.bs.modal', function (event) {
 					<select
 						class="form-control" id="studiengang"
 						data-ng-model="studiengang"
-						data-ng-options="stud.S_kurz for stud in studiengaaaenge"
-						ng-change="studiengangChanged()">
+						data-ng-options="stud.S_kurz for stud in studiengaenge"
+						>
 					</select> 
+					<input style="float: right; margin-top: 5px;" type="button" name="los" value="Bestätigen" ng-click="sChange()">
 				<br/>
 
-				<div id="modul_liste" ui-on-Drop="onDrop($event,$data,modulKa)">
-					<p>Modulkatalog:</p>
+				<div id="modul_liste" ui-on-Drop="onDrop($event,$data,arr8)">
+					<label>Modulkatalog:</label>
 					
 					<div id="dragItemsBox">
 						<div class="modul" ui-draggable="true" drag="modul"
-							on-drop-success="dropSuccessHandler($event,$index,modulKa)"
-							ng-repeat="modul in modulKa">{{modul.name}}</div>
+							on-drop-success="dropSuccessHandler($event,$index,arr8)"
+							ng-repeat="modul in arr8">{{modul.M_Name}}</div>
 					</div> 
-					<div id="modul" ng-click="add(modulkatalog)"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Modul hinzufügen</div>
+					<div class="btnLayout" id="modul" data-toggle="modal" data-target="#meinModal"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Modul hinzufügen</div><br>
 				</div>
-				<div id="container" ui-on-Drop="onDrop($event,$data,container)">
+				
+			<div id="container" class="btnLayout" ng-click="save()"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Studienplan Speichern</div><br>
+			<div  ng-click="printDiv('druckbereich')" class="btnLayout"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Studienplan Drucken</div>
+	
+			<div class="papierkorb" id="container" ui-on-Drop="onDrop($event,$data,container)">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Papierkorb</div>
-				</div>
-			<div id="container" ui-on-Drop="onDrop($event,$data,container)"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Studienplan peichern</div>
-			<div id="container" ui-on-Drop="onDrop($event,$data,container)"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Studienplan drucken</div>
+			</div>
 			
-			<div ng-click="saveJs()"> datenbank yeeey</div>
+			
 			
 		</aside>
 		
 	
 
-		<aside class="col-md-9">
-			<h5>Studiengangauswahl -> Fakultät: {{fakultaet.name}}
-				Studingang: {{studiengang.name}}</h5>
+		<aside id="druckbereich" class="col-md-9">
+		
+			<div class="ectsAusrichtung">
+					<div class="ectsNr">6</div>
+					<div class="ectsNr">12</div>
+					<div class="ectsNr">18</div>
+					<div class="ectsNr">24</div>
+					<div class="ectsNr">30</div>
+			</div>
+			
 			<div id="dropbereich">
 				
 			
 				<table>
-					<thead>
-						<tr>
-							<th id="th_semester">Sem.</th>
-							<th>Studienaufbau</th>
-						</tr>
-					</thead>
+					
 					<tbody>
-						<tr ui-on-Drop="onDrop($event,$data,arr1test)">
+						<tr ui-on-Drop="onDrop($event,$data,arr1)">
 							<td>
 								<div id="semester"">1</div>
 							</td>
 							<td>
 								<div id="struktur" ui-draggable="true" drag="mod1"
-									on-drop-success="dropSuccessHandler($event,$index,arr1test)"
-									data-ng-model="modul" ng-repeat="mod1 in arr1test">
-									<a href="#">{{mod1.M_Name}}</a>
+									on-drop-success="dropSuccessHandler($event,$index,arr1)"
+									data-ng-model="modul" ng-repeat="mod1 in arr1">
+									<a data-toggle="modal" data-target="#meinTest" >{{mod1.M_Name}}</a>
 								</div>
 							</td>
 						</tr>
-						<tr ui-on-Drop="onDrop($event,$data,sem2)">
+						<tr ui-on-Drop="onDrop($event,$data,arr2)">
 							<td>
 								<div id="semester">2</div>
 							</td>
 							<td>
 								<div id="struktur" ui-draggable="true" drag="mod2"
-									on-drop-success="dropSuccessHandler($event,$index,sem2)"
+									on-drop-success="dropSuccessHandler($event,$index,arr2)"
 									data-ng-model="modul"
-									ng-repeat="mod2 in sem2 ">
-									<a href="#">{{mod2.name}}</a>
+									ng-repeat="mod2 in arr2 ">
+									<a href="#">{{mod2.M_Name}}</a>
 								</div>
 							</td>
 						</tr>
-						<tr ui-on-Drop="onDrop($event,$data,sem3)">
+						<tr ui-on-Drop="onDrop($event,$data,arr3)">
 							<td>
 								<div id="semester">3</div>
 							</td>
 							<td>
 								<div id="struktur" ui-draggable="true" drag="mod3"
-									on-drop-success="dropSuccessHandler($event,$index,sem3)"
+									on-drop-success="dropSuccessHandler($event,$index,arr3)"
 									data-ng-model="modul"
-									ng-repeat="mod3 in sem3 ">
-									<a href="#">{{mod3.name}}</a>
+									ng-repeat="mod3 in arr3 ">
+									<a href="#">{{mod3.M_Name}}</a>
 								</div>
 							</td>
 						</tr>
 						
-						<tr ui-on-Drop="onDrop($event,$data,sem4)">
+						<tr ui-on-Drop="onDrop($event,$data,arr4)">
 							<td>
 								<div id="semester">4</div>
 							</td>
 							<td>
 								<div id="struktur" ui-draggable="true" drag="mod4"
-									on-drop-success="dropSuccessHandler($event,$index,sem4)"
+									on-drop-success="dropSuccessHandler($event,$index,arr4)"
 									data-ng-model="modul"
-									ng-repeat="mod4 in sem4 ">
-									<a href="#">{{mod4.name}}</a>
+									ng-repeat="mod4 in arr4 ">
+									<a href="#">{{mod4.M_Name}}</a>
 								</div>
 							</td>
 						</tr>
-						<tr ui-on-Drop="onDrop($event,$data,sem5)">
+						<tr ui-on-Drop="onDrop($event,$data,arr5)">
 							<td>
 								<div id="semester">5</div>
 							</td>
 							<td>
 								<div id="struktur" ui-draggable="true" drag="mod5"
-									on-drop-success="dropSuccessHandler($event,$index,sem5)"
+									on-drop-success="dropSuccessHandler($event,$index,arr5)"
 									data-ng-model="modul"
-									ng-repeat="mod5 in sem5 ">
-									<a href="#">{{mod5.name}}</a>
+									ng-repeat="mod5 in arr5 ">
+									<a href="#">{{mod5.M_Name}}</a>
 								</div>
 							</td>
 						</tr>
-						<tr ui-on-Drop="onDrop($event,$data,sem6)">
+						<tr ui-on-Drop="onDrop($event,$data,arr6)">
 							<td>
 								<div id="semester">6</div>
 							</td>
 							<td>
 								<div id="struktur" ui-draggable="true" drag="mod6"
-									on-drop-success="dropSuccessHandler($event,$index,sem6)"
+									on-drop-success="dropSuccessHandler($event,$index,arr6)"
 									data-ng-model="modul"
-									ng-repeat="mod6 in sem6 ">
-									<a href="#">{{mod6.name}}</a>
+									ng-repeat="mod6 in arr6 ">
+									<a href="#">{{mod6.M_Name}}</a>
 								</div>
 							</td>
 						</tr>
-						<tr ui-on-Drop="onDrop($event,$data,sem7)">
+						<tr ui-on-Drop="onDrop($event,$data,arr7)">
 							<td>
 								<div id="semester">7</div>
 							</td>
 							<td>
 								<div id="struktur" ui-draggable="true" drag="mod7"
-									on-drop-success="dropSuccessHandler($event,$index,sem7)"
+									on-drop-success="dropSuccessHandler($event,$index,arr7)"
 									data-ng-model="modul"
-									ng-repeat="mod7 in sem7 ">
-									<a href="#">{{mod7.name}}</a>
+									ng-repeat="mod7 in arr7 ">
+									<a href="#">{{mod7.M_Name}}</a>
 								</div>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			
+			
+			
+			<!-- Modal -->
+			<div class="modal fade" id="meinModal" tabindex="-1" role="dialog" aria-labelledby="meinModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+							<h4 class="modal-title" id="meinModalLabel">Welchen Modul möchten Sie hinzufügen?</h4>
+						</div>
+						<div class="modal-body">
+							<label for="Module eingeben">Mudule eingaben</label>
+							<input type="Module" class="form-control" id="Modulname" placeholder="Module eingeben">
+						</div>
+						<div class="modal-body">
+							<label for="Kurzname">Kurzname eingaben</label>
+							<input type="Module" class="form-control" id="mkurz" placeholder="Module eingeben">
+						</div>
+						<div class="modal-body">
+							<label for="Ects">Ects</label>
+							<input type="Ects" class="form-control" id="Ects" placeholder="Ects">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+						<button type="button" class="btn btn-primary" ng-click="add(arr8)" data-dismiss="modal">Eingabe speichern</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script><!-- Ende Module hinzufügen -->
+			
+			
+			
+			
+			<!-- Test -->
+			<div class="modal fade" id="meinTest" tabindex="-1" role="dialog" aria-labelledby="meinModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+							<h4 class="modal-title" id="meinModalLabel">AMK?</h4>
+						</div>
+						<div class="modal-body">
+							<label for="Titel">Titel:</label>
+							<input type="Module" class="form-control" id="Module" value="Einführung in die Wirtschaftsinformatik">
+						</div>
+						<div class="modal-body">
+							<label for="Dozent">Dozent:</label>
+							<input type="Ects" class="form-control" id="Ects" value="Prof. Dr. A. Heß / Prof. Dr. P, Mattheis / M. Herrmann (LB)">
+						</div>
+						<div class="modal-body">
+							<label for="Einordnung">Einordnung:</label>
+							<input type="Ects" class="form-control" id="Ects" value="1. Semester">
+							<input type="Ects" class="form-control" id="Ects" value="6 ECTS"> 
+							<input type="Ects" class="form-control" id="Ects" value="6 SWS">
+							<input type="Ects" class="form-control" id="Ects" value="Pflichfach">
+						</div>
+						<div class="modal-body">
+							<label for="Einordnung">Arbeitsaufwand:</label>
+							<input type="Ects" class="form-control" id="Ects" value="Gesamt 180 Std.">
+							<input type="Ects" class="form-control" id="Ects" value="Präsenz: 90 Std."> 
+							<input type="Ects" class="form-control" id="Ects" value="Vor- und Nachbereitung: 70 Std.">
+							<input type="Ects" class="form-control" id="Ects" value="Prüfung: 20 Std.">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+						<button type="button" class="btn btn-primary" ng-click="add(arr8)" data-dismiss="modal">Eingabe speichern</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script><!-- Ende Module hinzufügen -->
+			
 		</aside>
 	</section>
 	</main>

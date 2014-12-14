@@ -102,7 +102,7 @@ div#dragItemsBox {
 	width: 100%;
 	margin-top: 10px;
 	overflow-y: scroll;
-	height: 150px;
+	height: 200px;
 	bottom: 155px;
 	background-color: grey;
 	opacity: 0.8;
@@ -168,7 +168,8 @@ table tr:nth-child(even) {
   background-color: #ffffff;
 }
 table td {
-	height: 30px;
+	height: 70px;
+	
 	padding: 0px;	
 }
 .nav{
@@ -217,4 +218,50 @@ table td > div > a {
         padding-left:0;
         padding-right:0;
     }
+
+.btnLayout {
+    cursor: pointer;
+	//border: 1px solid black;
+	width:auto;
+	overflow:hidden;
+
+	border-radius: 3px 3px 3px 3px;
+	float: left;
+	top:30px;
+}
+
+.papierkorb {
+
+	border: 1px solid black;
+	width: 250px;
+	height: 50px;
+	background-color: grey;
+	text-align: center;
+	padding-top: 13px;
+	font-size: 18px;
+	opacity: 0.9;
+	margin-top: 30px;
+	border-radius: 3px 3px 3px 3px;
+	float: left;
+	top:30px;
+}
+
+
+div.btnLayout:hover {
+  color: black ;
+  background-color: #def ;
+  	//-webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+	box-shadow: 0 0 1px 1px rgba(0, 0, 0, .5);
+} 
+.ectsNr{
+	float: left;
+	width: 155px;
+	text-align: right;
+	margin-right: 5px;
+}
+
+.ectsAusrichtung{
+	margin-left: 25px;
+}
+
 

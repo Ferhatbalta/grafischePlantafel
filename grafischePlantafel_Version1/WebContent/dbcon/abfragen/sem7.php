@@ -19,11 +19,12 @@ $dbname = "studienPlaner";
 mysql_select_db($dbname, $connection) or die("Konnte Datenbank nicht auswählen");
 
 //3
-$query = "SELECT m.M_Name, m.ECTS FROM 
+$query = "SELECT m.M_Name, m.ECTS, l.M_ID FROM 
 location l, Fakultaet f, Modul m, Studiengang s
 Where f.F_ID = l.F_ID
 AND s.S_ID = l.S_ID
 AND m.M_ID = l.M_ID
+AND l.location = 7
 AND l.F_ID = $fak
 AND l.S_ID = $stud";
 $result = mysql_query($query, $connection) or die("Query failed: " . mysql_error());
@@ -34,38 +35,6 @@ while ($r=mysql_fetch_assoc($result)){
 }
 
 echo $json_data = json_encode($json);
-/**
-//4
-if(mysql_num_rows($result) == 0){
-	echo "keine Ergebnisse";
-}
 
-//5
-
-//echo '<table border="1">';
-while ($row = mysql_fetch_assoc($result)){
-//	echo "<tr>";
-
-	//echo "<td>" . $row[M_ID] . "</td>";
-	//echo "<td>" . $row[S_ID] . "</td>";
-	echo $row[M_ID];
-	echo $row[S_ID];
-	$testperson1_json = json_encode(get_object_vars($row));
-	
-	echo $testperson1_json;
-
-//	echo "</tr>";
-
-}
-//echo "</table>";
-
-
-	
-//6
-
-mysqli_free_result( $result );
-
-
-**/
 	
 ?>
