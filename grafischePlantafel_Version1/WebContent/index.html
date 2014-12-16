@@ -1,117 +1,68 @@
 <!DOCTYPE html>
-<html>
-
+<html ng-app="mainModule">
 <head>
-<title>Studienplaner</title>
-<meta charset="utf-8">
-<meta name="description" content="Übersicht der Studiengängen">
-<!-- <link rel="stylesheet" href="css/stylesindex.css">  -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/mycssstyle.css">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
-<script src="angularjs/draganddrop.js"></script>
-<script src="angularjs/app.js"></script>
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script><!-- link für jQuery librery -->
-
-<script>
-  $('#meinButton').on('click', function () {
-    var $btn = $(this).button('loading')
-    // Geschäftslogik...
-    $btn.button('reset')
-  })
-</script>
-<script>
-$(function () {
-	  $('[data-toggle="tooltip"]').tooltip()
-	})
-$('#beispiel').popover(options)
-
-</script>
-
-
+	<title>Studienplaner</title>
+	<meta charset="utf-8">
+	<meta name="description" content="Übersicht der Studiengängen">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/mycssstyle.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+	<script src="angularjs/draganddrop.js"></script>
+	<script src="angularjs/app.js"></script>
+	<script src="angularjs/box.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script><!-- link für jQuery librery -->
 </head>
-<body ng-app="mainModule">
-<div class="container drop-shadow">
-<div class="container ">
-<div class="row"> 
-	<header>
-		<a href="#" title="Zur Startseite"> <img
-			src="images/LogoStudienplaner.jpg" class="img-circle"
-			alt="Responsive" />
-		</a>
-		<img src="images/logo-hfu.gif"  class="img-responsive pull-right" alt="Responsive" >
-		<h1>Studienplaner</h1>
-		
-		<nav class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-tabs">
-      
-        		<li class="active text-uppercase"><a href="#">Home</a></li>
-				<li><a href="#">Mein Studienplan</a></li>
-				<li role="presentation" class="dropdown">
-    				<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-      					Dropdown-Menü <span class="caret"></span> </a>
-   					<ul class="dropdown-menu" role="menu">
-           				 <li><a href="#">Aktion</a></li>
-            			 <li><a href="#">Andere Aktion</a></li>
-            			<li><a href="#">Irgendwas anderes</a></li>
-					</ul>
-				</li>
-				<li><a href="#">Studienplan bearbeiten</a></li>
-				
-	</ul>
-	
-
-</nav>
-	</header>
-
-	<main ng-controller="mainController">
-	<section>
-		
-		<aside class="col-md-3">
-			<div class="form-group">
-				<label>Fakultät:</label> 
-					<select name="selectFa" class="form-control" id="fakultät" data-ng-model="fakultaet"
-						data-ng-options="fa.F_kurz for fa in fakultaeten"
-						ng-change="fChange()">
-					</select> 
-				<br/> 
-				<label for="studiengang">Studiengang:</label> 
-					<select
-						class="form-control" id="studiengang"
-						data-ng-model="studiengang"
-						data-ng-options="stud.S_kurz for stud in studiengaenge"
-						>
-					</select> 
-					<input style="float: right; margin-top: 5px;" type="button" name="los" value="Bestätigen" ng-click="sChange()">
-				<br/>
-
-				<div id="modul_liste" ui-on-Drop="onDrop($event,$data,arr8)">
-					<label>Modulkatalog:</label>
+<body ng-controller="mainController">
+	<div class="container drop-shadow">
+		<div class="container ">
+			<div class="row"> 
+				<header>
+					<a href="#" title="Zur Startseite"> <img src="images/LogoStudienplaner.jpg" class="img-circle" alt="Responsive" /></a>
+					<img src="images/logo-hfu.gif"  class="img-responsive pull-right" alt="Responsive" >
+					<h1>Studienplaner</h1>
 					
-					<div id="dragItemsBox">
-						<div class="modul" ui-draggable="true" drag="modul"
-							on-drop-success="dropSuccessHandler($event,$index,arr8)"
-							ng-repeat="modul in arr8">{{modul.M_Name}}</div>
-					</div> 
-					<div class="btnLayout" id="modul" data-toggle="modal" data-target="#meinModal"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Modul hinzufügen</div><br>
-				</div>
-				
-			<div id="container" class="btnLayout" ng-click="save()"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Studienplan Speichern</div><br>
-			<div  ng-click="printDiv('druckbereich')" class="btnLayout"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Studienplan Drucken</div>
-	
-			<div class="papierkorb" id="container" ui-on-Drop="onDrop($event,$data,container)">
-					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Papierkorb</div>
-			</div>
-			
-			
-			
-		</aside>
-		
-	
+					<nav class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      				
+      					<ul class="nav navbar-tabs">
+      						<li><a href="#">Home</a></li>
+							<li><a data-toggle="modal" data-target="#login">Adminbereich</a></li>	
+							<li><a ng-click="printDiv('druckbereich')"> Studienplan drucken</a><li>	
+						</ul>
+					</nav>
+				</header>
+				<main>
+					<section>
+						<aside class="col-md-3">
+							<div class="form-group">
+								<label>Fakultät:</label> 
+								<select 
+									name="selectFa" class="form-control" id="fakultät" data-ng-model="fakultaet" data-ng-options="fa.F_kurz for fa in fakultaeten" ng-change="fChange()">
+								</select> 
+								<br/> 
+								<label for="studiengang">Studiengang:</label> 
+								<select
+									class="form-control" id="studiengang" data-ng-model="studiengang" data-ng-options="stud.S_kurz for stud in studiengaenge">
+								</select> 
+								<input style="float: right; margin-top: 5px;" type="button" name="los" value="Bestätigen" ng-click="sChange()">
+								<br/>
 
-		<aside id="druckbereich" class="col-md-9">
-		
+								<div id="modul_liste" ui-on-Drop="onDrop($event,$data,arr8)">
+								<label>Modulkatalog:</label>
+									<div id="dragItemsBox">
+										<div 
+											class="modul" ui-draggable="true" drag="modul" on-drop-success="dropSuccessHandler($event,$index,arr8)" ng-repeat="modul in arr8">{{modul.M_Name}}
+										</div>
+									</div> 
+								</div>
+								<div class="papierkorb" id="container" ui-on-Drop="onDrop($event,$data,container)">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Papierkorb</div>
+								</div>
+						</aside>
+						
+						<aside id="druckbereich" class="col-md-9">
+		<div>
+		<h5><b>Fakultät:</b> {{fakultaet.F_kurz}} <b>       Studingang:</b> {{studiengang.S_Name}}</h5> 
+		</div>	
 			<div class="ectsAusrichtung">
 					<div class="ectsNr">6</div>
 					<div class="ectsNr">12</div>
@@ -134,8 +85,9 @@ $('#beispiel').popover(options)
 								<div id="struktur" ui-draggable="true" drag="mod1"
 									on-drop-success="dropSuccessHandler($event,$index,arr1)"
 									data-ng-model="modul" ng-repeat="mod1 in arr1">
-									<a data-toggle="modal" data-target="#meinTest" >{{mod1.M_Name}}</a>
+									<a ng-click="test(mod1.M_ID)" data-toggle="modal" data-target="#aktuellerModul" >{{mod1.M_Name}}</a>
 								</div>
+								
 							</td>
 						</tr>
 						<tr ui-on-Drop="onDrop($event,$data,arr2)">
@@ -223,90 +175,171 @@ $('#beispiel').popover(options)
 			
 			
 			
-			<!-- Modal -->
-			<div class="modal fade" id="meinModal" tabindex="-1" role="dialog" aria-labelledby="meinModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
-							<h4 class="modal-title" id="meinModalLabel">Welchen Modul möchten Sie hinzufügen?</h4>
-						</div>
-						<div class="modal-body">
-							<label for="Module eingeben">Mudule eingaben</label>
-							<input type="Module" class="form-control" id="Modulname" placeholder="Module eingeben">
-						</div>
-						<div class="modal-body">
-							<label for="Kurzname">Kurzname eingaben</label>
-							<input type="Module" class="form-control" id="mkurz" placeholder="Module eingeben">
-						</div>
-						<div class="modal-body">
-							<label for="Ects">Ects</label>
-							<input type="Ects" class="form-control" id="Ects" placeholder="Ects">
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
-						<button type="button" class="btn btn-primary" ng-click="add(arr8)" data-dismiss="modal">Eingabe speichern</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script><!-- Ende Module hinzufügen -->
 			
+		
 			
-			
-			
-			<!-- Test -->
-			<div class="modal fade" id="meinTest" tabindex="-1" role="dialog" aria-labelledby="meinModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
-							<h4 class="modal-title" id="meinModalLabel">AMK?</h4>
-						</div>
-						<div class="modal-body">
-							<label for="Titel">Titel:</label>
-							<input type="Module" class="form-control" id="Module" value="Einführung in die Wirtschaftsinformatik">
-						</div>
-						<div class="modal-body">
-							<label for="Dozent">Dozent:</label>
-							<input type="Ects" class="form-control" id="Ects" value="Prof. Dr. A. Heß / Prof. Dr. P, Mattheis / M. Herrmann (LB)">
-						</div>
-						<div class="modal-body">
-							<label for="Einordnung">Einordnung:</label>
-							<input type="Ects" class="form-control" id="Ects" value="1. Semester">
-							<input type="Ects" class="form-control" id="Ects" value="6 ECTS"> 
-							<input type="Ects" class="form-control" id="Ects" value="6 SWS">
-							<input type="Ects" class="form-control" id="Ects" value="Pflichfach">
-						</div>
-						<div class="modal-body">
-							<label for="Einordnung">Arbeitsaufwand:</label>
-							<input type="Ects" class="form-control" id="Ects" value="Gesamt 180 Std.">
-							<input type="Ects" class="form-control" id="Ects" value="Präsenz: 90 Std."> 
-							<input type="Ects" class="form-control" id="Ects" value="Vor- und Nachbereitung: 70 Std.">
-							<input type="Ects" class="form-control" id="Ects" value="Prüfung: 20 Std.">
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
-						<button type="button" class="btn btn-primary" ng-click="add(arr8)" data-dismiss="modal">Eingabe speichern</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script><!-- Ende Module hinzufügen -->
 			
 		</aside>
 	</section>
 	</main>
 	<footer class="row">
   			<div class="col col-md-12 offset-9"> Copyright &copy; 2014 Studienplaner | Grafische Plantafel | <a href="http://www.hs-furtwangen.de">Hochschule Furtwangen</a> | <a href="http://www.hs-furtwangen.de">Impressum</a> </div>
+  	</footer>
   		
-				
-  		
-  		</footer>
+<!-- ---------------------------------------------------------------------------------------------------- -->   		
+<!-- ------------------------- Boxen -------------------------------------------------------------------- -->  	
+<!-- ---------------------------------------------------------------------------------------------------- -->  
+	
+<!-- Login -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="meinModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+				<h4 class="modal-title" id="meinModalLabel">Adminbereich:</h4>
+			</div>
+			<div class="modal-body">
+				<div class="btnLayout" data-dismiss="modal" id="modul" data-toggle="modal" data-target="#fakultaetHinzufuegen"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Fakultät hinzufügen</div><br>
+				<div class="btnLayout" data-dismiss="modal" id="modul" data-toggle="modal" data-target="#studiengangtHinzufuegen"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Studiengang hinzufügen</div><br>
+				<div class="btnLayout" data-dismiss="modal" id="modul" data-toggle="modal" data-target="#modulHinzufuegen"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Modul hinzufügen</div><br>
+				<div id="container" data-dismiss="modal" class="btnLayout" ng-click="save()"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Studienplan Speichern</div><br>
+			</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script><!-- Ende Module hinzufügen -->	
+		
+			
+<!-- aktuellerModul -->
+<div class="modal fade" id="aktuellerModul" tabindex="-1" role="dialog" aria-labelledby="meinModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+				<h4 data-ng-model="modul" ng-repeat="mod1 in aModulArr" >{{mod1.M_Name}}</h4>
+			</div>
+			<div class="modal-body">
+				<label for="Dozent">Dozent:</label>
+				<p data-ng-model="modul" ng-repeat="mod1 in aModulArr" >{{mod1.Dozent}}</p>
+			</div>
+			<div class="modal-body">
+				<label for="Einordnung">Einordnung:</label>
+				<p data-ng-model="modul" ng-repeat="mod1 in aModulArr" ><b>Fach:   </b>{{mod1.Fach}}</p>
+				<p data-ng-model="modul" ng-repeat="mod1 in aModulArr" ><b>ECTS:   </b>{{mod1.ects}}</p>
+				<p data-ng-model="modul" ng-repeat="mod1 in aModulArr" ><b>SWS:   </b>{{mod1.SWS}}</p>
+			</div>
+			<div class="modal-body">
+				<label for="Einordnung">Arbeitsaufwand:</label>
+				<p data-ng-model="modul" ng-repeat="mod1 in aModulArr" ><b>Gesamt:   </b>{{mod1.gesamtAa}} Std.</p>
+				<p data-ng-model="modul" ng-repeat="mod1 in aModulArr" ><b>Präsenz:   </b>{{mod1.praesenzAa}} Std.</p>
+				<p data-ng-model="modul" ng-repeat="mod1 in aModulArr" ><b>Vor- und Nachbereitung:   </b>{{mod1.vUnAa}} Std.</p>
+				<p data-ng-model="modul" ng-repeat="mod1 in aModulArr" ><b>Prüfung:   </b>{{mod1.Pruefung}} Std.</p>
+
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script><!-- Ende Module hinzufügen -->
+		
+		
+<!-- Modul hinzufügen -->
+<div class="modal fade" id="modulHinzufuegen" tabindex="-1" role="dialog" aria-labelledby="meinModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+				<h4 class="modal-title" id="meinModalLabel">Welchen Modul möchten Sie hinzufügen?</h4>
+			</div>
+			<div class="modal-body">
+				<label for="Module eingeben">Mudule eingaben</label>
+				<input type="Module" class="form-control" id="Modulname" placeholder="Module eingeben">
+			</div>
+			<div class="modal-body">
+				<label for="Kurzname">Kurzname eingaben</label>
+				<input type="Module" class="form-control" id="mkurz" placeholder="Module eingeben">
+			</div>
+			<div class="modal-body">
+				<label for="Ects">Ects</label>
+				<input type="Ects" class="form-control" id="Ects" placeholder="Ects">
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+			<button type="button" class="btn btn-primary" ng-click="addModul()"  data-dismiss="modal">Eingabe speichern</button>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script><!-- Ende Module hinzufügen -->
+
+
+<!-- Fakultät hinzufügen -->
+<div class="modal fade" id="fakultaetHinzufuegen" tabindex="-1" role="dialog" aria-labelledby="meinModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+				<h4 class="modal-title" id="meinModalLabel">Fakiltät hinzufügen:</h4>
+			</div>
+			<div class="modal-body">
+				<label for="Module eingeben">Fakultätname:</label>
+				<input type="Module" class="form-control" id="Fakultaetname" placeholder="Fakultaet eingeben">
+			</div>
+			<div class="modal-body">
+				<label for="Kurzname">Fakultaeten Kurzname: </label>
+				<input type="Module" class="form-control" id="fkurz" placeholder="Fakultaeten Kurzname eingeben">
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+			<button type="button" class="btn btn-primary" ng-click="addFakultaet()"  data-dismiss="modal">Eingabe speichern</button>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script><!-- Ende Module hinzufügen -->
+						
+
+<!-- Studiengang hinzufügen -->
+<div class="modal fade" id="studiengangtHinzufuegen" tabindex="-1" role="dialog" aria-labelledby="meinModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+				<h4 class="modal-title" id="meinModalLabel">Studiengang hinzufügen:</h4>
+			</div>
+			<div class="modal-body">
+				<label>Fakultät wählen:</label> 
+					<select 
+						name="selectFa" class="form-control" id="fakultät" data-ng-model="fakultaet" data-ng-options="fa.F_kurz for fa in fakultaeten" ng-change="fChange()">
+					</select> <br>
+				<label for="Module eingeben">Studiengangname::</label>
+				<input type="Module" class="form-control" id="Studiengangname" placeholder="Studiengangname eingeben">
+			</div>
+			<div class="modal-body">
+				<label for="Kurzname">Studiengang Kurzname: </label>
+				<input type="Module" class="form-control" id="skurz" placeholder="Studiengang Kurzname eingeben">
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+			<button type="button" class="btn btn-primary" ng-click="addStudiengang()"  data-dismiss="modal">Eingabe speichern</button>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script><!-- Ende Module hinzufügen -->
+
+			
 	  	</div>
 	</div><!-- --ende container -->
 	</div> <!-- ende row -->

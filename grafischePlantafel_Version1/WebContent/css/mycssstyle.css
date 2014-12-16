@@ -23,7 +23,7 @@ header a {
 }
 header h1 {
 	font-family: Arial;
-	color: green;
+	color: rgb(0, 136, 84);
 }
 
 nav {
@@ -55,8 +55,8 @@ main {
 	height: 595px;
 	background-color: #dcdcdc;/* #F8F8ff;*/
 	border-top: 1px solid grey;
-	border-bottom: 30px solid grey;
-	border-radius: 20px 20px 0px 0px;
+	border-bottom: 30px solid rgb(0, 136, 84);
+	//border-radius: 20px 20px 0px 0px;
 	margin-top: 20px;
 	
 	
@@ -102,7 +102,7 @@ div#dragItemsBox {
 	width: 100%;
 	margin-top: 10px;
 	overflow-y: scroll;
-	height: 200px;
+	height: 250px;
 	bottom: 155px;
 	background-color: grey;
 	opacity: 0.8;
@@ -143,6 +143,7 @@ table, th , td  {
   border-collapse: collapse;
   padding: 5px;
   height: 50px;
+  float: left;
  border-style: hidden; rahmen unsichtbar machen
 }
 
@@ -173,7 +174,7 @@ table td {
 	padding: 0px;	
 }
 .nav{
-	background-color: green;
+	background-color: rgb(0, 136, 84);
 	border-radius: 20px 20px 0px 0px; 
 	margin-top: 35px;
 	width: 100%;
@@ -182,6 +183,13 @@ table td {
 
 .nav li a {
 	color: white;
+}
+
+.nav>li>a:hover,.nav>li>a:focus{
+	background-color: white;
+	color: rgb(0, 136, 84);
+	font-weight: bold; 
+
 }
 
 .btn btn-default navbar-btn{
@@ -262,6 +270,10 @@ div.btnLayout:hover {
 
 .ectsAusrichtung{
 	margin-left: 25px;
+}
+
+.modal-dialog{
+	width: 950px;
 }
 
 
