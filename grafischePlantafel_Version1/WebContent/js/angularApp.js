@@ -1,5 +1,16 @@
+/**
+**********************************************************************************
+*					Grafische Plantafel / Studienplaner							 *
+*			Softwareprojekt WS 14/15 Wirtschaftsinformatik  					 *
+*	Ferhat Balta, Kazim Atila, Veronika Kinzel, William Landry Tella Kamdem		 *
+*								12.01.2015										 *
+**********************************************************************************
+ */
+
+// Initialisieren von der AngularJs App
 var app = angular.module("mainModule", ["ngDragDrop"]);
 
+//Initialisieren von dem AngularJs Controller
 app.controller("mainController", function($scope, $http) {
 		
 	// Fakultaeten auslesen
@@ -28,16 +39,20 @@ app.controller("mainController", function($scope, $http) {
 		$http.post( "dbcon/semester/sem5.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr5 = response;});
 		$http.post( "dbcon/semester/sem6.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr6 = response;});
 		$http.post( "dbcon/semester/sem7.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr7 = response;});
-		$http.post( "dbcon/semester/sem8.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.arr8 = response;});
+		$http.post( "dbcon/semester/modulkatalog.php", { name: $scope.aktuelleFakultaet, name1: $scope.aktuellerStudiengang } ).success(function(response) {$scope.modulkatalog = response;});
+		
+
 	};
+	
 	
 	// Papierkorb
 	$scope.container = [];
 	
 	// Funktion um änderungen zu speichern
 	$scope.save = function(){
+		
 		// Alle Module, die im Array des 1. Semesters sind werden gespeichert
-		$scope.lok = 1;
+		$scope.lok = 1;  // Die Variable lok gibt die Aktuelle Location des jeweiligen Modules an
 		for(var i=0;i<$scope.arr1.length;i++) {
 			$scope.mid = $scope.arr1[i].M_ID;
 			$http.post( "dbcon/abfragen/save.php", { mid: $scope.mid, lok: $scope.lok } ).success(function(response){});
@@ -87,8 +102,8 @@ app.controller("mainController", function($scope, $http) {
 		
 		// Alle Module, die im Array des Modulkataloges sind werden gespeichert
 		$scope.lok = 8;
-		for(var i=0;i<$scope.arr8.length;i++) {
-			$scope.mid = $scope.arr8[i].M_ID;
+		for(var i=0;i<$scope.modulkatalog.length;i++) {
+			$scope.mid = $scope.modulkatalog[i].M_ID;
 			$http.post( "dbcon/abfragen/save.php", { mid: $scope.mid, lok: $scope.lok } ).success(function(response){});
 		}
 		
@@ -115,12 +130,13 @@ app.controller("mainController", function($scope, $http) {
 	$scope.arrAddModul = [];
 	$scope.addModul = function()
 	{
-		// Modulname, Ects und Modul kurzbeschreibung werden von der Benutzereingabe abgeholt und in einer Variablen gespeichert
+		// Modulname, Ects und Modul kurzbeschreibung werden von der Benutzereingabe abgeholt und in Variablen gespeichert
 		$scope.modulname = document.getElementById('Modulname').value;
 		$scope.ects = document.getElementById('Ects').value;
 		$scope.mkurz = document.getElementById('mkurz').value;
-
-		$scope.arr8.push({M_Name: $scope.modulname, ECTS:$scope.ects});
+		
+		// Die Benutzereingabe wird in dem Array Modulkatalog gespeichert
+		$scope.modulkatalog.push({M_Name: $scope.modulname, ECTS:$scope.ects});
 		$scope.arrAddModul.push({fid: $scope.aktuelleFakultaet, sid: $scope.aktuellerStudiengang, mkurz: $scope.mkurz, modulname: $scope.modulname, ects: $scope.ects});
 		
 			$scope.afid = $scope.arrAddModul[0].fid;
@@ -134,7 +150,8 @@ app.controller("mainController", function($scope, $http) {
 			$http.post( "dbcon/abfragen/insert1.php", { sid: $scope.asid, mkurz: $scope.amkurz, modulname: $scope.amodulname, ects: $scope.aects  } ).success(function(response)
 					{
 						$scope.aktuelleMID = response.M_ID; 
-						$http.post( "dbcon/abfragen/insert2.php", { fid: $scope.afid, sid: $scope.asid, mid: $scope.aktuelleMID } ).success(function(response){});
+						$scope.modulkatalog = [];
+						$http.post( "dbcon/abfragen/insert2.php", { fid: $scope.afid, sid: $scope.asid, mid: $scope.aktuelleMID } ).success(function(response){$scope.modulkatalog = response;});
 					});
 				
 			$scope.arrAddModul = [];	
@@ -143,9 +160,10 @@ app.controller("mainController", function($scope, $http) {
 	};
 	
 	
+	//Funktion um neue Falkultät hinzuzufügen
 	$scope.addFakultaet = function()
 	{
-		// Modulname, Ects und Modul kurzbeschreibung werden von der Benutzereingabe abgeholt und in einer Variablen gespeichert
+		// Fakultätname und Fakultät Kurzname werden von der Benutzereingabe abgeholt und in Variablen gespeichert
 		$scope.fakultaetname = document.getElementById('Fakultaetname').value;
 		$scope.fkurz = document.getElementById('fkurz').value;
 		
@@ -154,7 +172,10 @@ app.controller("mainController", function($scope, $http) {
 			window.location.href="/index.html";
 	};
 	
-	$scope.addStudiengang = function(){
+	//Funktion um neuen Studiengang hinzuzufügen
+	$scope.addStudiengang = function()
+	{
+		// Studiengangname und Studiengang Kurzname werden von der Benutzereingabe abgeholt und in Variablen gespeichert
 		$scope.studiengangname = document.getElementById('Studiengangname').value;
 		$scope.skurz = document.getElementById('skurz').value;
 		
@@ -163,13 +184,41 @@ app.controller("mainController", function($scope, $http) {
 		window.location.href="/index.html";
 	};
 	
-	$scope.test = function(aModulId){
-			$http.post("../dbcon/aModul.php", { name: aModulId }).success(function(response) {$scope.aModulArr = response;});
+	// Funktion um das aktuelle Modul rauszufinden
+	$scope.aModul = function(aModulId){
+		$scope.aModulId = aModulId;
+		//alert($scope.aModulId);
+			$http.post("../dbcon/aModul.php", { name: $scope.aModulId }).success(function(response) {$scope.aModulArr = response;});
 	};
+	
+	// Funktion um die Module zu ändern 
+	$scope.modulAendern = function(aModulId){
+		// Die Modul Attribute werden von der Benutzereingabe abgeholt und in Variablen gespeichert
+		$scope.inputDozent = document.getElementById('inputDozent').value;
+		$scope.inputFach = document.getElementById('inputFach').value;
+		$scope.inputECTS = document.getElementById('inputECTS').value;
+		$scope.inputSWS = document.getElementById('inputSWS').value;
+		$scope.inputGesamtAa = document.getElementById('inputGesamtAa').value;
+		$scope.inputPraesenzAa = document.getElementById('inputPraesenzAa').value;
+		$scope.inputVuNaA = document.getElementById('inputVuNaA').value;
+		$scope.inputPruefung = document.getElementById('inputPruefung').value;
+		
+		$http.post( "dbcon/abfragen/modulAendern.php", { 
+			aModulId: $scope.aModulId,
+			inputDozent: $scope.inputDozent, 
+			inputFach: $scope.inputFach,
+			inputECTS: $scope.inputECTS,
+			inputSWS: $scope.inputSWS,
+			inputGesamtAa: $scope.inputGesamtAa,
+			inputPraesenzAa: $scope.inputPraesenzAa,
+			inputVuNaA: $scope.inputVuNaA,
+			inputPruefung: $scope.inputPruefung
+		} ).success(function(response) {});
+	
+	};
+	
 
 
-	
-	
 	
 	//Funktion um zu Drucken
 	$scope.printDiv = function(drucken) {
@@ -187,6 +236,5 @@ app.controller("mainController", function($scope, $http) {
 	  popupWin.document.close();
 	} 
 	
-
 
 });

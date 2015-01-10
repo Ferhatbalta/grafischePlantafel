@@ -1,45 +1,30 @@
 <?php
 
+/**
+ **********************************************************************************
+ *					Grafische Plantafel / Studienplaner							 *
+ *			Softwareprojekt WS 14/15 Wirtschaftsinformatik  					 *
+ *	Ferhat Balta, Kazim Atila, Veronika Kinzel, William Landry Tella Kamdem		 *
+ *								12.01.2015										 *
+ **********************************************************************************
+ **/
 
-// 1
-$dbhost = "localhost";
-$dbuser = "dbuser";
-$dbpassword = "";
-$connection = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Kann nicht verbinden: " . mysql_error());
+/* externe PHP Datei wird importiert, um die Verbindung zur Datenbank herzustellen */
+include '../verbindungHerstellen.php';
 
+/* Variablen werden von der AngularJS App an die PHP datei übergeben */
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 $mid = $request->mid;
 
-//2
+/* SQL Befehle definieren*/ 
+$query = "DELETE FROM location WHERE M_ID = $mid"; /* Löscht Modul anhand der M_ID von der Tabelle Location */
+$query1 = "DELETE FROM Modulbeschreibung  WHERE M_ID =  $mid"; /* Löscht Modul anhand der M_ID von der Tabelle Modulbeschreibung */
+$query2 = "DELETE FROM Modul WHERE M_ID =  $mid"; /* Löscht Modul anhand der M_ID von der Tabelle Modul  */
 
-
-$dbname = "studienPlaner";
-mysql_select_db($dbname, $connection) or die("Konnte Datenbank nicht auswählen");
-
-//3
-$query = "DELETE FROM location WHERE M_ID = $mid";
-
+/* SQL-Befehle ausführen */
 $result = mysql_query($query, $connection) or die("Query failed: " . mysql_error());
-	
-$json = array();
-while ($r=mysql_fetch_assoc($result)){
-	$json[]= $r;
-}
-
-echo $json_data = json_encode($json);
-
-// frdsh
-
-$query1 = "DELETE FROM Modul WHERE M_ID =  $mid";
-
 $result1 = mysql_query($query1, $connection) or die("Query failed: " . mysql_error());
+$result2 = mysql_query($query2, $connection) or die("Query failed: " . mysql_error());
 
-$json1 = array();
-while ($r1=mysql_fetch_assoc($result1)){
-	$json1[]= $r1;
-}
-
-echo $json_data = json_encode($json1);
-	
 ?>

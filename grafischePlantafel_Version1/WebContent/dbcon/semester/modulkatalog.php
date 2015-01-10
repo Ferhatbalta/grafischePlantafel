@@ -18,13 +18,14 @@ $request = json_decode($postdata);
 $fak = $request->name;
 $stud = $request->name1;
 
+
 /* SQL Befehl definieren*/
 $query = "SELECT m.M_Name, m.ECTS, l.M_ID FROM 
 location l, Fakultaet f, Modul m, Studiengang s
 Where f.F_ID = l.F_ID
 AND s.S_ID = l.S_ID
 AND m.M_ID = l.M_ID
-AND l.location = 3
+AND l.location = 8
 AND l.F_ID = $fak
 AND l.S_ID = $stud";
 
@@ -39,6 +40,5 @@ while ($r=mysql_fetch_assoc($result)){
 
 /* Ergebniss Array wird decodiert und and die AngulaJS App weitergegeben */
 echo $json_data = json_encode($json);
-
 	
 ?>
